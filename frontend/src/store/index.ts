@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { todoApi } from './todoApi'
+import { apiQuery } from './api.query'
 
 export const store = configureStore({
     reducer: {
-        [todoApi.reducerPath]: todoApi.reducer
+        [apiQuery.reducerPath]: apiQuery.reducer
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(todoApi.middleware)
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiQuery.middleware)
 })
 
 export type RootState = ReturnType<typeof store.getState>
