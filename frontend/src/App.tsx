@@ -1,13 +1,13 @@
-import './App.css'
+import TodoContainer from './components/TodoContainer'
 import { useGetAllTodosQuery } from './store/query/todos'
 
 function App() {
   const { data: todos, isLoading, error } = useGetAllTodosQuery()
-  console.log("->", todos);
-  
+  if (isLoading) return <div>Loading...</div>
+  if (error) return <div>Error loading todos</div>
   return (
     <>
-      {JSON.stringify(todos)}
+      {todos && <TodoContainer todos={todos}/>}
     </>
   )
 }

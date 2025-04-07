@@ -13,9 +13,10 @@ export const todosApi = apiQuery.injectEndpoints({
 
         getTodoById: builder.query<Todo, string>({
             query: (id) => `/todos/${id}`,
+            // @ts-ignore
             providesTags: (result, error, id) => [{ type: 'TODO', id }]
         }),
-    
+        
         createTodo: builder.mutation<Todo, Omit<Todo, 'id' | 'completed'>>({
             query: (newTodo) => ({
                 url: '/todos',
@@ -24,21 +25,23 @@ export const todosApi = apiQuery.injectEndpoints({
             }),
             invalidatesTags: ['TODO']
         }),
-
+        
         updateTodo: builder.mutation<Todo, { id: string; changes: Partial<Todo> }>({
             query: ({ id, changes }) => ({
                 url: `/todos/${id}`,
                 method: 'PUT',
                 body: changes
             }),
+            // @ts-ignore
             invalidatesTags: (result, error, { id }) => [{ type: 'TODO', id }]
         }),
-
+        
         deleteTodo: builder.mutation<void, string>({
             query: (id) => ({
                 url: `/todos/${id}`,
                 method: 'DELETE'
             }),
+            // @ts-ignore
             invalidatesTags: (result, error, id) => [{ type: 'TODO', id }]
         })
     }),
